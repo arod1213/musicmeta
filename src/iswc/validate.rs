@@ -1,3 +1,11 @@
+use thiserror::Error;
+
+#[derive(Debug, Error)]
+pub enum IswcError {
+    #[error("Invalid Iswc")]
+    Invalid,
+}
+
 pub fn valid_iswc_digit(x: u64) -> bool {
     // max 10 digits
     if x > 9999999999 {

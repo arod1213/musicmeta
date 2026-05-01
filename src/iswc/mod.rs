@@ -6,17 +6,17 @@ use std::{fmt::Display, str::FromStr};
 
 use serde::{Deserialize, Serialize};
 
-use crate::iswc::validate::{valid_iswc, valid_iswc_digit};
+use crate::iswc::validate::{IswcError, valid_iswc, valid_iswc_digit};
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Iswc(pub u64);
 impl TryFrom<String> for Iswc {
-    type Error = ();
+    type Error = IswcError;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
         match Self::new_from_str(&value) {
             Some(s) => Ok(s),
-            None => Err(()),
+            None => Err(IswcError::Invalid),
         }
     }
 }

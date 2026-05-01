@@ -51,7 +51,7 @@ pub fn valid_ipi_name_number(num: u64) -> Result<(), IpiError> {
     let num_str = format!("{:0>11.11}", num);
     let base = &num_str[0..9];
     let weight_fn = |acc: u32, x: u32, idx: u32| acc + x * (10 - idx);
-    validate(&base, 100, 101, (num % 100) as u32, 0, weight_fn)
+    validate(base, 100, 101, (num % 100) as u32, 0, weight_fn)
 }
 
 pub fn valid_ipi_base_number(value: &str) -> Result<u64, IpiError> {
