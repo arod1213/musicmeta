@@ -74,12 +74,12 @@ impl ReadableWithIndex for Iswc {
 }
 
 impl FromStr for Iswc {
-    type Err = ();
+    type Err = IswcError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match Self::new_from_str(s) {
             Some(s) => Ok(s),
-            None => Err(()),
+            None => Err(IswcError::Invalid),
         }
     }
 }
