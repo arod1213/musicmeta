@@ -1,7 +1,21 @@
-#[derive(Debug, PartialEq)]
+use std::fmt::Display;
+
+use thiserror::Error;
+
+#[derive(Debug, PartialEq, Error)]
 pub enum IpiError {
     ChecksumMismatch(u32, u32),
     BadFormat(String),
+}
+impl Display for IpiError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            IpiError::ChecksumMismatch(expected, actual) => {
+                write!(f, "expected {} but found {}", expected, actual)
+            }
+            IpiError::BadFormat(e) => write!(f, "{}", e),
+        }
+    }
 }
 
 pub fn validate(
