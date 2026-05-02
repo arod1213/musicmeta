@@ -15,11 +15,12 @@ pub struct IpiBaseNum {
 }
 
 impl IpiBaseNum {
+    pub fn number(&self) -> u64 {
+        self.base + (self.remainder as u64)
+    }
+
     pub fn new(value: &str) -> Result<Self, IpiError> {
-        let num = match valid_ipi_base_number(value) {
-            Ok(x) => x,
-            Err(e) => return Err(e),
-        };
+        let num = valid_ipi_base_number(value)?;
         let base = num - (num % 10);
         let rem = (num % 10) as u8;
         let full = format!("I-{base}-{rem}");
