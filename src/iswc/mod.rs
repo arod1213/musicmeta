@@ -1,7 +1,6 @@
 mod validate;
 
 use serde::de::Error;
-use sqlite::ReadableWithIndex;
 use std::{fmt::Display, str::FromStr};
 
 use serde::{Deserialize, Serialize};
@@ -46,30 +45,6 @@ impl Iswc {
             return None;
         };
         Some(Self(digits))
-    }
-}
-
-impl From<Iswc> for sqlite::Value {
-    fn from(value: Iswc) -> Self {
-        sqlite::Value::Integer(value.0 as i64)
-    }
-}
-
-impl ReadableWithIndex for Iswc {
-    fn read<T: sqlite::ColumnIndex>(stmt: &sqlite::Statement, index: T) -> sqlite::Result<Self> {
-        let Some(value) = stmt.read::<Option<i64>, _>(index)? else {
-            return Err(sqlite::Error {
-                code: None,
-                message: Some("IPI Base value is null / invalid".to_string()),
-            });
-        };
-        match Iswc::new(value as u64) {
-            Some(s) => sqlite::Result::Ok(s),
-            None => sqlite::Result::Err(sqlite::Error {
-                code: None,
-                message: Some(format!("invalid IPI base num: {}", value)),
-            }),
-        }
     }
 }
 
@@ -118,5 +93,35 @@ mod test_iswc {
     fn test_write() {
         let x = Iswc::new_from_str("T-303.805.932-0").unwrap();
         assert_eq!("T3038059320", x.to_string())
+    }
+}
+
+// -- SQLITE
+#[cfg(feature = "sqlite")]
+use sqlite::ReadableWithIndex;
+
+#[cfg(feature = "sqlite")]
+impl From<Iswc> for sqlite::Value {
+    fn from(value: Iswc) -> Self {
+        sqlite::Value::Integer(value.0 as i64)
+    }
+}
+
+#[cfg(feature = "sqlite")]
+impl ReadableWithIndex for Iswc {
+    fn read<T: sqlite::ColumnIndex>(stmt: &sqlite::Statement, index: T) -> sqlite::Result<Self> {
+        let Some(value) = stmt.read::<Option<i64>, _>(index)? else {
+            return Err(sqlite::Error {
+                code: None,
+                message: Some("IPI Base value is null / invalid".to_string()),
+            });
+        };
+        match Iswc::new(value as u64) {
+            Some(s) => sqlite::Result::Ok(s),
+            None => sqlite::Result::Err(sqlite::Error {
+                code: None,
+                message: Some(format!("invalid IPI base num: {}", value)),
+            }),
+        }
     }
 }
