@@ -11,7 +11,7 @@ pub fn valid_iswc_digit(x: u64) -> bool {
     if x > 9999999999 {
         return false;
     }
-    let digits = format!("{:10.10}", x);
+    let digits = format!("{:0>10.10}", x);
     iswc_checksum(&digits)
 }
 
@@ -62,6 +62,12 @@ mod test {
     // let x = "T1234567893";
     // assert!(valid_iswc(x));
     // }
+
+    #[test]
+    fn test_short() {
+        let x = 702446647;
+        assert!(valid_iswc_digit(x));
+    }
 
     #[test]
     fn test_seq() {
