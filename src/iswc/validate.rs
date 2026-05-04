@@ -33,6 +33,7 @@ pub fn valid_iswc(iswc: &str) -> bool {
     if digits.chars().into_iter().any(|c| !c.is_ascii_digit()) {
         return false;
     }
+    dbg!(&digits);
     iswc_checksum(digits)
 }
 
