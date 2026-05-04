@@ -39,9 +39,9 @@ pub fn valid_iswc(iswc: &str) -> bool {
 
 fn iswc_checksum(digits: &str) -> bool {
     let check_sum = digits.chars().take(9).enumerate().fold(1, |acc, (idx, c)| {
-        let digit = c
-            .to_digit(10)
-            .unwrap_or_else(|| panic!("c is invalid digit {c}"));
+        let Some(digit) = c.to_digit(10) else {
+            return acc;
+        };
         acc + (idx as u32 + 1) * digit
     });
     let expected = (10 - (check_sum % 10)) % 10;
