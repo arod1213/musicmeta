@@ -33,19 +33,19 @@ pub fn valid_iswc(iswc: &str) -> bool {
     if digits.chars().into_iter().any(|c| !c.is_ascii_digit()) {
         return false;
     }
-    dbg!(&digits);
     iswc_checksum(digits)
 }
 
 fn iswc_checksum(digits: &str) -> bool {
     let check_sum = digits.chars().take(9).enumerate().fold(1, |acc, (idx, c)| {
-        let Some(digit) = c.to_digit(10) else {
-            return acc;
-        };
+        let digit = c.to_digit(10).expect("invalid digit");
         acc + (idx as u32 + 1) * digit
     });
     let expected = (10 - (check_sum % 10)) % 10;
-    let actual = digits.chars().nth(9).unwrap().to_digit(10).unwrap();
+    let Some(actual) = digits.chars().nth(9) else {
+        return false;
+    };
+    let actual = actual.to_digit(10).expect("invalid last digit");
     expected == actual
 }
 
