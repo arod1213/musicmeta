@@ -3,7 +3,7 @@ use std::{fmt::Display, str::FromStr};
 use serde::{Deserialize, Serialize, de};
 
 #[derive(Debug)]
-pub enum WriterDesignation {
+pub enum WriterRole {
     Adaptor,
     Arranger,
     LyricAuthor,
@@ -15,44 +15,44 @@ pub enum WriterDesignation {
     IncomeParticipant,
 }
 
-impl FromStr for WriterDesignation {
+impl FromStr for WriterRole {
     type Err = ();
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let x = match s {
-            "AD" => WriterDesignation::Adaptor,
-            "AR" => WriterDesignation::Arranger,
-            "A" => WriterDesignation::LyricAuthor,
-            "C" => WriterDesignation::ComposerWriter,
-            "CA" => WriterDesignation::ComposerAuthor,
-            "SR" => WriterDesignation::SubArranger,
-            "SA" => WriterDesignation::SubAuthor,
-            "TR" => WriterDesignation::Translator,
-            "PA" => WriterDesignation::IncomeParticipant,
+            "AD" => WriterRole::Adaptor,
+            "AR" => WriterRole::Arranger,
+            "A" => WriterRole::LyricAuthor,
+            "C" => WriterRole::ComposerWriter,
+            "CA" => WriterRole::ComposerAuthor,
+            "SR" => WriterRole::SubArranger,
+            "SA" => WriterRole::SubAuthor,
+            "TR" => WriterRole::Translator,
+            "PA" => WriterRole::IncomeParticipant,
             _ => return Err(()),
         };
         Ok(x)
     }
 }
 
-impl Display for WriterDesignation {
+impl Display for WriterRole {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let x = match self {
-            WriterDesignation::Adaptor => "AD",
-            WriterDesignation::Arranger => "AR",
-            WriterDesignation::LyricAuthor => "A",
-            WriterDesignation::ComposerWriter => "C",
-            WriterDesignation::ComposerAuthor => "CA",
-            WriterDesignation::SubArranger => "SR",
-            WriterDesignation::SubAuthor => "SA",
-            WriterDesignation::Translator => "TR",
-            WriterDesignation::IncomeParticipant => "PA",
+            WriterRole::Adaptor => "AD",
+            WriterRole::Arranger => "AR",
+            WriterRole::LyricAuthor => "A",
+            WriterRole::ComposerWriter => "C",
+            WriterRole::ComposerAuthor => "CA",
+            WriterRole::SubArranger => "SR",
+            WriterRole::SubAuthor => "SA",
+            WriterRole::Translator => "TR",
+            WriterRole::IncomeParticipant => "PA",
         };
         write!(f, "{x}")
     }
 }
 
-impl<'de> Deserialize<'de> for WriterDesignation {
+impl<'de> Deserialize<'de> for WriterRole {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -64,7 +64,7 @@ impl<'de> Deserialize<'de> for WriterDesignation {
         }
     }
 }
-impl Serialize for WriterDesignation {
+impl Serialize for WriterRole {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
