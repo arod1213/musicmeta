@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 #[repr(u16)]
 #[derive(Debug, Deserialize, Serialize, TryFromPrimitive, PartialEq, Eq)]
-#[serde(rename = "title_case")]
+#[serde(rename_all = "UPPERCASE")]
 pub enum TisSocietyCode {
     Dp = 0,                       // Public Domain
     Acum = 1,                     // Israel
