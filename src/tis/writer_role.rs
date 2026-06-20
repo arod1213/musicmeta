@@ -14,6 +14,11 @@ pub enum WriterRole {
     Translator,
     IncomeParticipant,
 }
+impl Default for WriterRole {
+    fn default() -> Self {
+        Self::ComposerAuthor
+    }
+}
 
 impl FromStr for WriterRole {
     type Err = ();

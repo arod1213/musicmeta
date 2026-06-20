@@ -11,6 +11,12 @@ pub enum PublisherRole {
     Substituted,
     SubPublisher,
 }
+impl Default for PublisherRole {
+    fn default() -> Self {
+        Self::OriginalPublisher
+    }
+}
+
 impl Display for PublisherRole {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let x = match self {
