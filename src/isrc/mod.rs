@@ -34,7 +34,7 @@ impl FromStr for Isrc {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let clean = clean_isrc(s);
-        if clean.len() != 11 {
+        if clean.len() != 12 {
             return Err(());
         }
         let country = clean[0..2].to_string();
