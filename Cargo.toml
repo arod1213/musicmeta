@@ -1,7 +1,8 @@
 [package]
 name = "musicmeta"
-version = "0.1.9\gi"
+version = "0.1.9"
 edition = "2024"
+  
 
 [dependencies]
 num_enum = "0.7.6"
