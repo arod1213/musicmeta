@@ -1,13 +1,35 @@
 use std::{fmt::Display, str::FromStr};
 
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, de};
 
-#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Isrc {
     pub country: String,
     pub creator: String,
     pub year_suffix: u8,
     pub id: u32,
+}
+
+impl Serialize for Isrc {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(&self.to_string())
+    }
+}
+
+impl<'de> Deserialize<'de> for Isrc {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let text = String::deserialize(deserializer)?;
+        match Isrc::from_str(&text) {
+            Ok(x) => Ok(x),
+            Err(_) => Err(de::Error::custom(format!("invalid isrc {text}"))),
+        }
+    }
 }
 
 impl Display for Isrc {

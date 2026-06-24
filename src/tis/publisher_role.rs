@@ -2,7 +2,7 @@ use std::{fmt::Display, str::FromStr};
 
 use serde::{Deserialize, Serialize, de};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum PublisherRole {
     OriginalPublisher,
     IncomeParticipant,
