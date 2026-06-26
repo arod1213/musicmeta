@@ -36,7 +36,7 @@ impl Display for Isrc {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "{:>2.2}-{:<3.3}-{:0>2.2}-{:>5.5}",
+            "{:>2.2}-{:<3.3}-{:0>2.2}-{:0>5.5}",
             self.country, self.creator, self.year_suffix, self.id
         )
     }
@@ -69,5 +69,39 @@ impl FromStr for Isrc {
             year_suffix,
             id,
         })
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    #[test]
+    pub fn test_read() {
+        let val = "USUG11800925";
+        let res = Isrc::from_str(val).unwrap();
+        assert_eq!(res.country, "US");
+        assert_eq!(res.creator, "UG1");
+        assert_eq!(res.year_suffix, 18);
+        assert_eq!(res.id, 925);
+    }
+    #[test]
+    pub fn test_read_dashes() {
+        let val = "US-UG1-18-00925";
+        let res = Isrc::from_str(val).unwrap();
+        assert_eq!(res.country, "US");
+        assert_eq!(res.creator, "UG1");
+        assert_eq!(res.year_suffix, 18);
+        assert_eq!(res.id, 925);
+    }
+    #[test]
+    pub fn test_write() {
+        let val = "US-UG1-18-00925";
+        let x = Isrc {
+            country: "US".into(),
+            creator: "UG1".into(),
+            year_suffix: 18,
+            id: 925,
+        };
+        assert_eq!(val, x.to_string());
     }
 }
