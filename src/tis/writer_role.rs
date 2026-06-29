@@ -2,22 +2,18 @@ use std::{fmt::Display, str::FromStr};
 
 use serde::{Deserialize, Serialize, de};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub enum WriterRole {
     Adaptor,
     Arranger,
     LyricAuthor,
     ComposerWriter,
+    #[default]
     ComposerAuthor,
     SubArranger,
     SubAuthor,
     Translator,
     IncomeParticipant,
-}
-impl Default for WriterRole {
-    fn default() -> Self {
-        Self::ComposerAuthor
-    }
 }
 
 impl FromStr for WriterRole {

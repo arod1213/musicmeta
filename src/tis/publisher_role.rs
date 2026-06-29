@@ -2,19 +2,15 @@ use std::{fmt::Display, str::FromStr};
 
 use serde::{Deserialize, Serialize, de};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub enum PublisherRole {
+    #[default]
     OriginalPublisher,
     IncomeParticipant,
     Acquirer,
     Admin,
     Substituted,
     SubPublisher,
-}
-impl Default for PublisherRole {
-    fn default() -> Self {
-        Self::OriginalPublisher
-    }
 }
 
 impl Display for PublisherRole {
