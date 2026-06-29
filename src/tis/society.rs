@@ -250,6 +250,7 @@ pub enum TisSocietyCode {
     Ecad = 308, // Brazil
     Latinnet = 309, // Spain
     Diva = 310, // Hong Kong));
+    Gmr = 778,  // Global
     MusicMark = 707, // USA));
 }
 // impl TisSocietyCode {

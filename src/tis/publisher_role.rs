@@ -5,11 +5,17 @@ use serde::{Deserialize, Serialize, de};
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub enum PublisherRole {
     #[default]
+    /// The interested party which has acquired by agreement with a composer and/or author rights in one or more works for a stipulated territory and duration.
     OriginalPublisher,
+    /// A person or corporation that receives royalty payments for a work but is not a copyright owner.
     IncomeParticipant,
+    /// A publisher that acquires some or all of the ownership from an Original Publisher, but yet the Original Publisher still controls the work.
     Acquirer,
+    // An interested party that collects royalty payments on behalf of a publisher that it represents.
     Admin,
+    /// A publisher acting on behalf of publisher or sub-publisher.
     Substituted,
+    /// The interested party which has acquired by agreement with a publisher rights in one or more works for a stipulated territory and duration.
     SubPublisher,
 }
 
