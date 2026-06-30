@@ -2,7 +2,7 @@ use num_enum::TryFromPrimitive;
 use serde::{Deserialize, Serialize};
 
 #[repr(u16)]
-#[derive(Debug, Deserialize, Serialize, TryFromPrimitive, PartialEq, Eq, Clone)]
+#[derive(Debug, Deserialize, Serialize, TryFromPrimitive, PartialEq, Eq, Clone, Hash)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum TisSocietyCode {
     Dp = 0,                       // Public Domain

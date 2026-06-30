@@ -2,7 +2,7 @@ use num_enum::TryFromPrimitive;
 use serde::{Deserialize, Serialize};
 
 #[repr(u16)]
-#[derive(Debug, Deserialize, Serialize, TryFromPrimitive, Clone, Copy)]
+#[derive(Debug, Deserialize, Serialize, TryFromPrimitive, Clone, Copy, Hash)]
 pub enum TisCountryCode {
     Afghanistan = 4,
     Albania = 8,
@@ -210,7 +210,7 @@ pub enum TisCountryCode {
 }
 
 #[repr(u16)]
-#[derive(Debug, Deserialize, Serialize, TryFromPrimitive, Clone, Copy)]
+#[derive(Debug, Deserialize, Serialize, TryFromPrimitive, Clone, Copy, Hash)]
 pub enum TisRegionCode {
     Africa = 2100,
     America = 2101,
